@@ -31,11 +31,21 @@ public class Tree01 {
 		} else if (value > subtreeRoot.getData()) {
 			subtreeRoot.setRightChild(delete(subtreeRoot.getRightChild(), value));
 		} else {
+			//case 1 and 2
 			if (subtreeRoot.getLeftChild() == null) {
 				return subtreeRoot.getRightChild();
 			} else if (subtreeRoot.getRightChild() == null) {
 				return subtreeRoot.getLeftChild();
 			}
+			
+			//case 3: node to delete has 2 children
+			//replace the value in the subtreeRoot node with the smallest value
+			//from the right subtree
+			subtreeRoot.setData(subtreeRoot.getRightChild().min());
+		
+			//delete the node that has the smallest value in the right subtree.
+			subtreeRoot.setRightChild(delete(subtreeRoot.getRightChild(), subtreeRoot.getData()));
+			
 		}
 		return subtreeRoot;
 	}
@@ -59,6 +69,12 @@ public class Tree01 {
 	public void traverseInOrder() {
 		if (root != null) {
 			root.traverseInOrder();
+		}
+	}
+	
+	public void traversePreOrder() {
+		if (root != null) {
+			root.traversePreOrder();
 		}
 	}
 
